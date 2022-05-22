@@ -33,19 +33,21 @@ export class LoginComponentComponent implements OnInit {
     this.add = false;
     this.mode1 = true;
   }
+  //退出
   exit() {
     const formData = new FormData();
     this.httpClient.post(this.baseUrl + 'user/logout', formData, { withCredentials: true }).subscribe(
       (val: any) => {
         if (val.success) {
+          sessionStorage.removeItem("username");
           console.log("成功退出");
         } else {
           alert(val.message);
         }
       }
     );
-    this.router.navigateByUrl("/home")
   }
+
   ngOnInit(): void {
     this.httpClient.get(this.baseUrl + 'user/', { withCredentials: true }).subscribe(
       (val: any) => {

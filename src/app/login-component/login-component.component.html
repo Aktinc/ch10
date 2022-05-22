@@ -21,7 +21,7 @@
                 <a class="nav-link" (click)="mode1_show()">用户更改</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" (click)="exit()">账号退出</a>
+                <a class="nav-link" [routerLink]="['/']" (click)="exit()">账号退出</a>
             </li>
         </ul>
         <form class="form-inline my-2 my-lg-0" [formGroup]="myForm">

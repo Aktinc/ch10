@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { Token } from '@angular/compiler';
 import { Component, Directive, ElementRef, HostListener, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, NgControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -34,11 +35,11 @@ export class HomeComponentComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
   }
 
   //登录界面
   login() {
+    sessionStorage.setItem('username', this.myForm.controls["name"].value);
     const formData = new FormData();
     Object.keys(this.myForm.value).forEach((key) => {
       formData.append(key, this.myForm.value[key]);
@@ -46,9 +47,10 @@ export class HomeComponentComponent implements OnInit {
     this.httpClient.post(this.baseUrl + 'user/login', formData, { withCredentials: true }).subscribe(
       (val: any) => {
         if (val.success) {
-          this.router.navigateByUrl("login")
+          this.router.navigateByUrl("login");
           console.log("登录成功");
         } else {
+
           alert(val.message);
         }
       }
