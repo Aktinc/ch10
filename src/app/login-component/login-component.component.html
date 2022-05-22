@@ -1,0 +1,68 @@
+<!--导航栏-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">大作业</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link"><span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="add_show()">用户增加</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="add_hide()">用户删除</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="mode1_show()">用户更改</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="exit()">账号退出</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0" [formGroup]="myForm">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"
+                formControlName="name">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" (click)="inquire()">查找</button>
+        </form>
+    </div>
+</nav>
+<!--用户列表-->
+<ul class="list-group list-group-horizontal align-items-center justify-content-center login-content ">
+    <li class="list-group-item head">序列</li>
+    <li class="list-group-item head">账号</li>
+    <li class="list-group-item head">密码</li>
+</ul>
+<ul *ngFor="let i of users$"
+    class="list-group list-group-horizontal align-items-center justify-content-center login-content ">
+    <li class="list-group-item">{{i.id}}</li>
+    <li class="list-group-item">{{i.name}}</li>
+    <li class="list-group-item">{{i.password}}</li>
+</ul>
+<h2 *ngIf="a" class="list-group list-group-horizontal align-items-center justify-content-center login-content ">请先登录
+</h2>
+
+<form [formGroup]="myForm">
+    <div class="input-group mb-3">
+        <input id="name" type="text" class="form-control" placeholder="输入用户名" aria-label="Recipient's username"
+            formControlName="name" aria-describedby="button-addon2">
+        <input id="password" type="text" class="form-control" placeholder="输入密码" aria-label="Recipient's username"
+            formControlName="password" aria-describedby="button-addon2" *ngIf="add">
+        <input id="password" type="text" class="form-control" placeholder="输入更改的用户名" aria-label="Recipient's username"
+            formControlName="name_alter" aria-describedby="button-addon2" *ngIf="!mode1">
+        <div class="input-group-append">
+            <div *ngIf="mode1">
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" *ngIf="add"
+                    (click)="userAdd()">用户添加</button>
+                <button class="btn btn-outline-secondary" type="button" id="button-addon2" *ngIf="!add"
+                    (click)="userDelete()">用户删除</button>
+            </div>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" *ngIf="!mode1"
+                (click)="userAlter()">用户修改</button>
+        </div>
+    </div>
+</form>
